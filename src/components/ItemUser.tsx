@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSave, faTrash } from "@fortawesome/free-solid-svg-icons";
-import ITodo from "../models/ITodo/ITodo";
+import ITodo from "../models/interfaces/ITodo";
+import {
+  valueIsEditReducer,
+  IValueAndIsEdit,
+} from "../redux/reducers/valueIsEditReducer";
 import { Button } from "react-bootstrap";
 
 interface IUserProps {
@@ -10,50 +14,64 @@ interface IUserProps {
 }
 
 const ItemUser = ({ item, handleDelete }: IUserProps) => {
-  const [editValue, setEditValue] = useState<string>(item.title);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const initialState: IValueAndIsEdit = {
+    editValue: item.title,
+    isEdit: false,
+  };
+
+  const [valueIsEdit, valueIsEditDispatch] = useReducer(
+    valueIsEditReducer,
+    initialState
+  );
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === "Enter" && editValue) {
-      setEditValue(editValue);
-      setIsEdit(false);
+    if (e.key === "Enter" && valueIsEdit.editValue) {
+      valueIsEditDispatch({
+        type: "EDIT_VALUE",
+        payload: valueIsEdit.editValue,
+      });
+      valueIsEditDispatch({ type: "IS_EDIT", payload: valueIsEdit.editValue });
     }
   };
 
   const handleSave = (): void => {
-    if (editValue) {
-      setEditValue(editValue);
-      setIsEdit(false);
+    if (valueIsEdit.editValue) {
+      valueIsEditDispatch({
+        type: "EDIT_VALUE",
+        payload: valueIsEdit.editValue,
+      });
+      valueIsEditDispatch({ type: "IS_EDIT", payload: valueIsEdit.editValue });
     }
   };
 
   const handleChangeEdit = (): void => {
-    setIsEdit(!isEdit);
+    valueIsEditDispatch({ type: "IS_EDIT", payload: valueIsEdit.editValue });
   };
 
   const handleChangeInputEdit = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setEditValue(e.target.value);
+    valueIsEditDispatch({ type: "EDIT_VALUE", payload: e.target.value });
   };
 
   return (
     <tr>
       <th scope="row">{item.id}</th>
-      {isEdit ? (
+      {valueIsEdit.isEdit ? (
         <td>
           <input
+            className="input__edit_value"
             type="text"
-            value={editValue}
+            value={valueIsEdit.editValue}
             onChange={handleChangeInputEdit}
             onKeyPress={handleKeyPress}
           />
         </td>
       ) : (
-        <td>{editValue}</td>
+        <td>{valueIsEdit.editValue}</td>
       )}
       <td>
-        {isEdit ? (
+        {valueIsEdit.isEdit ? (
           <Button onClick={handleSave} className="save">
             <FontAwesomeIcon icon={faSave} />
           </Button>

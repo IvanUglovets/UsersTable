@@ -1,38 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./index.css";
-import { Container, Row, Spinner } from "react-bootstrap";
-import ITodo from "./models/ITodo/ITodo";
-import Header from "./components/Header";
-import Table from "./components/Table";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import ErrorPage from "./pages/ErrorPage";
 
 const App: React.FC = () => {
-  const [todo, setTodo] = useState<ITodo[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      axios("https://jsonplaceholder.typicode.com/todos").then((response) =>
-        setTodo(response.data)
-      );
-      setIsLoading(false);
-    }, 1500);
-  }, []);
-
   return (
-    <Container>
-      <Row>
-        <Header />
-        {isLoading ? (
-          <div className="wrapper__spinner">
-            {" "}
-            <Spinner animation="border" />
-          </div>
-        ) : (
-          <Table todo={todo} setTodo={setTodo} />
-        )}
-      </Row>
-    </Container>
+    <Switch>
+      <Route exact path="/" component={MainPage} />
+      <Route exact component={ErrorPage} />
+    </Switch>
   );
 };
 

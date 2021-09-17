@@ -1,6 +1,6 @@
 import React from "react";
 import "../index.css";
-import ITodo from "../models/ITodo/ITodo";
+import ITodo from "../models/interfaces/ITodo";
 import ItemUser from "./ItemUser";
 import { Button } from "react-bootstrap";
 import { Table as TableTodo, Row, Col } from "react-bootstrap";
