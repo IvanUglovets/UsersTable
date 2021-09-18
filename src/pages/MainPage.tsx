@@ -11,7 +11,7 @@ const MainPage: React.FC = () => {
   const [todo, setTodo] = useState<ITodo[]>([]);
 
   useEffect(() => {
-    axios("https://jsonplaceholder.typicode.com/todos").then((response) =>
+    axios("https://jsonplaceholder.typicode.com/users").then((response) =>
       setTodo(response.data)
     );
     setIsLoading(false);

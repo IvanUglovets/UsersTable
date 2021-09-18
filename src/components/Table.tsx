@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "../index.css";
+import MyModal from "../myModal/MyModal";
 import ITodo from "../models/interfaces/ITodo";
 import ItemUser from "./ItemUser";
 import { Button } from "react-bootstrap";
@@ -17,7 +18,7 @@ const styles = {
     justifyContent: "space-between",
   },
   selectWrapper: {
-    padding: "25px 10px 0 10px",
+    padding: "45px 10px 0 10px",
   },
   btn: {
     width: "100%",
@@ -32,24 +33,21 @@ const styles = {
 };
 
 const Table = ({ todo, setTodo }: ITableProps) => {
+  const [modalShow, setModalShow] = useState<boolean>(false);
+
   const handleDelete = (id: number): void => {
     let newUsersArray = todo.filter((todo) => todo.id !== id);
     setTodo(newUsersArray);
   };
 
-  const sortById = (): void => {
-    const newUsersArray: ITodo[] = [...todo].sort((a, b) => b.id - a.id);
-    setTodo(newUsersArray);
-  };
-
-  const defultTodos = (): void => {
+  const sortByDefault = (): void => {
     const newUsersArray: ITodo[] = [...todo].sort((a, b) => a.id - b.id);
     setTodo(newUsersArray);
   };
 
   const sortByAlpha = (): void => {
     const newUsersArray: ITodo[] = [...todo].sort((a, b) =>
-      a.title.localeCompare(b.title)
+      a.name.localeCompare(b.name)
     );
     setTodo(newUsersArray);
   };
@@ -57,12 +55,12 @@ const Table = ({ todo, setTodo }: ITableProps) => {
   return (
     <Row>
       <div style={styles.wrapper} className="wrapper">
-        <Col sm={10}>
+        <Col sm={9}>
           <TableTodo>
             <thead>
               <tr>
                 <th scope="col">id</th>
-                <th scope="col">Title</th>
+                <th scope="col">Name</th>
                 <th scope="col">Edit</th>
               </tr>
             </thead>
@@ -84,8 +82,15 @@ const Table = ({ todo, setTodo }: ITableProps) => {
             <Button
               style={styles.btn}
               variant="primary"
-              onClick={defultTodos}
-              className="btn__first"
+              onClick={() => setModalShow(true)}
+            >
+              Добавить
+            </Button>
+
+            <Button
+              style={styles.btn}
+              variant="primary"
+              onClick={sortByDefault}
             >
               {SelectString.DEFAULT}
             </Button>
@@ -93,11 +98,14 @@ const Table = ({ todo, setTodo }: ITableProps) => {
             <Button style={styles.btn} variant="primary" onClick={sortByAlpha}>
               {SelectString.SORT_BY_ALPHA}
             </Button>
-
-            <Button style={styles.btn} variant="primary" onClick={sortById}>
-              {SelectString.SORT_BY_ID}
-            </Button>
           </div>
+
+          <MyModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            todo={todo}
+            setTodo={setTodo}
+          />
         </Col>
       </div>
     </Row>

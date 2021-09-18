@@ -1,5 +1,5 @@
 export default interface ITodo {
   id: number;
-  title: string;
+  name: string;
   userId?: string;
 }

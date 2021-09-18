@@ -13,9 +13,16 @@ interface IUserProps {
   handleDelete: () => void;
 }
 
+const styles = {
+  buttons: {
+    display: "flex",
+    justifyContent: "center",
+  },
+};
+
 const ItemUser = ({ item, handleDelete }: IUserProps) => {
   const initialState: IValueAndIsEdit = {
-    editValue: item.title,
+    editValue: item.name,
     isEdit: false,
   };
 
@@ -70,7 +77,7 @@ const ItemUser = ({ item, handleDelete }: IUserProps) => {
       ) : (
         <td>{valueIsEdit.editValue}</td>
       )}
-      <td>
+      <td style={styles.buttons}>
         {valueIsEdit.isEdit ? (
           <Button onClick={handleSave} className="save">
             <FontAwesomeIcon icon={faSave} />
