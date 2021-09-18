@@ -39,3 +39,20 @@ td {
   background: #f6f6f6;
   border-radius: 8px;
 }
+
+.input__user {
+  font-size: 18px;
+  padding: 6px 0 4px 10px;
+  border: 1px solid #cecece;
+  background: #f6f6f6;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.input__last {
+  font-size: 18px;
+  padding: 6px 0 4px 10px;
+  border: 1px solid #cecece;
+  background: #f6f6f6;
+  border-radius: 8px;
+}

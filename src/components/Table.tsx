@@ -35,14 +35,20 @@ const styles = {
 const Table = ({ todo, setTodo }: ITableProps) => {
   const [modalShow, setModalShow] = useState<boolean>(false);
 
+  const deleteAllUsers = () => {
+    setTodo([]);
+  };
+
   const handleDelete = (id: number): void => {
     let newUsersArray = todo.filter((todo) => todo.id !== id);
     setTodo(newUsersArray);
   };
 
   const sortByDefault = (): void => {
-    const newUsersArray: ITodo[] = [...todo].sort((a, b) => a.id - b.id);
-    setTodo(newUsersArray);
+    const defaultUsersArray: ITodo[] = JSON.parse(
+      localStorage.getItem("response.data")!
+    );
+    setTodo(defaultUsersArray);
   };
 
   const sortByAlpha = (): void => {
@@ -84,7 +90,11 @@ const Table = ({ todo, setTodo }: ITableProps) => {
               variant="primary"
               onClick={() => setModalShow(true)}
             >
-              Добавить
+              Добавить пользователя
+            </Button>
+
+            <Button style={styles.btn} onClick={deleteAllUsers}>
+              Удалить всех
             </Button>
 
             <Button

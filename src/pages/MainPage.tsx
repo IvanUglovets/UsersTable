@@ -11,9 +11,10 @@ const MainPage: React.FC = () => {
   const [todo, setTodo] = useState<ITodo[]>([]);
 
   useEffect(() => {
-    axios("https://jsonplaceholder.typicode.com/users").then((response) =>
-      setTodo(response.data)
-    );
+    axios("https://jsonplaceholder.typicode.com/users").then((response) => {
+      localStorage.setItem("response.data", JSON.stringify(response.data));
+      setTodo(response.data);
+    });
     setIsLoading(false);
   }, []);
 
