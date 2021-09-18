@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import ITodo from "../models/interfaces/ITodo";
 
@@ -10,6 +10,38 @@ interface IMyModalProps {
 }
 
 const MyModal = ({ show, onHide, todo, setTodo }: IMyModalProps) => {
+  const [user, setUser] = useState("");
+
+  const handleUser = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === "Enter" && user) {
+      setTodo((prevState) => [
+        ...prevState,
+        {
+          id: Math.floor(Math.random() * (101 - 12) + 12),
+          name: user,
+        },
+      ]);
+      onHide();
+    }
+  };
+
+  const addUser = (): void => {
+    if (user) {
+      setTodo((prevState) => [
+        ...prevState,
+        {
+          id: Math.floor(Math.random() * (101 - 12) + 12),
+          name: user,
+        },
+      ]);
+      onHide();
+    }
+  };
+
   return (
     <Modal
       show={show}
@@ -26,11 +58,16 @@ const MyModal = ({ show, onHide, todo, setTodo }: IMyModalProps) => {
       <Modal.Body>
         <h4>Name:</h4>
         <div>
-          <input type="text" />
+          <input
+            type="text"
+            value={user}
+            onChange={handleUser}
+            onKeyPress={handleKeyPress}
+          />
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button>Add</Button>
+        <Button onClick={addUser}>Add</Button>
         <Button onClick={onHide}>Close</Button>
       </Modal.Footer>
     </Modal>

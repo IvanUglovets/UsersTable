@@ -6,6 +6,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "blue",
+    marginBottom: "40px",
   },
   title: {
     padding: " 10px 0",
