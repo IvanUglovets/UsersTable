@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../index.css";
-import axios from "axios";
 import Header from "../components/Header";
+import axios from "axios";
 import Table from "../components/Table";
 import ITodo from "../models/interfaces/ITodo";
 import { Container, Spinner } from "react-bootstrap";

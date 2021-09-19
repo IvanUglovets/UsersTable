@@ -6,6 +6,7 @@ body {
   padding: 0;
   font-size: 20px;
   box-sizing: border-box;
+  background-color: rgb(248, 238, 238);
 }
 
 tr,
@@ -55,4 +56,49 @@ td {
   border: 1px solid #cecece;
   background: #f6f6f6;
   border-radius: 8px;
+}
+
+.logo__title {
+  font-size: 30px;
+  color: white;
+  text-decoration: none;
+}
+
+.nav__link {
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.logo__title:hover {
+  color: white;
+}
+.nav__link:hover {
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.wrapper__home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.home__link {
+  font-size: 26px;
+  color: rgb(68, 68, 155);
+  text-decoration: none;
+}
+
+.home__link:hover {
+  border-bottom: 2px solid rgb(68, 68, 155);
+}
+
+.wrapper__error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

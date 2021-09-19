@@ -1,25 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "../index.css";
 
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "blue",
-    marginBottom: "40px",
-  },
-  title: {
-    padding: " 10px 0",
-    fontSize: "40px",
-    color: "white",
-  },
-};
-
+import { Navbar, Container, Nav } from "react-bootstrap";
 const Header: React.FC = () => {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Users table</h1>
-    </div>
+    <header>
+      <Navbar bg="primary" variant="dark">
+        <Container>
+          <Navbar.Brand>
+            <Link to="/" className="logo__title">
+              Users Table
+            </Link>
+          </Navbar.Brand>
+          <Nav className="justify-content-end">
+            <Link className="nav__link" to="/">
+              Home
+            </Link>
+            <Link className="nav__link" to="/table">
+              Table
+            </Link>
+          </Nav>
+        </Container>
+      </Navbar>
+    </header>
   );
 };
 
