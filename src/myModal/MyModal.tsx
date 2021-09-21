@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import "../index.css";
 import { Modal, Button } from "react-bootstrap";
 import ITodo from "../models/interfaces/ITodo";
+import { useDispatch } from "react-redux";
+import { addUserToTable } from "../redux/actionCreators";
 
 interface IMyModalProps {
   show: boolean;
   onHide: () => void;
-  todo: ITodo[];
-  setTodo: React.Dispatch<React.SetStateAction<ITodo[]>>;
+  users: ITodo[];
 }
 
-const MyModal = ({ show, onHide, todo, setTodo }: IMyModalProps) => {
+const MyModal = ({ show, onHide, users }: IMyModalProps) => {
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setUserName(e.target.value);
@@ -22,30 +25,18 @@ const MyModal = ({ show, onHide, todo, setTodo }: IMyModalProps) => {
     setUserLastName(e.target.value);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === "Enter" && userName && userLastName) {
-      setTodo((prevState) => [
-        ...prevState,
-        {
-          id: Math.floor(Math.random() * (101 - 12) + 12),
-          name: userName + " " + userLastName,
-        },
-      ]);
+  const addUser = (): void => {
+    if (userName && userLastName) {
+      dispatch(addUserToTable(userName, userLastName));
       setUserName("");
       setUserLastName("");
       onHide();
     }
   };
 
-  const addUser = (): void => {
-    if (userName && userLastName) {
-      setTodo((prevState) => [
-        ...prevState,
-        {
-          id: Math.floor(Math.random() * (101 - 12) + 12),
-          name: userName + " " + userLastName,
-        },
-      ]);
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === "Enter" && userName && userLastName) {
+      addUser();
       setUserName("");
       setUserLastName("");
       onHide();

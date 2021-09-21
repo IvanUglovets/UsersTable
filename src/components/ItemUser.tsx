@@ -5,7 +5,7 @@ import ITodo from "../models/interfaces/ITodo";
 import {
   valueIsEditReducer,
   IValueAndIsEdit,
-} from "../redux/reducers/valueIsEditReducer";
+} from "../reduxFake/reducers/valueIsEditReducer";
 import { Button } from "react-bootstrap";
 
 interface IUserProps {

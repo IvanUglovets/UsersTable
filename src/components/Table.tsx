@@ -6,10 +6,20 @@ import ItemUser from "./ItemUser";
 import { Button } from "react-bootstrap";
 import { Table as TableTodo, Row, Col } from "react-bootstrap";
 import { SelectString } from "../models/enums/selectEnum";
+import { useDispatch } from "react-redux";
+import { DEFAULT_TABLE } from "../redux/types/users";
+import {
+  deleteAll,
+  handleDeleteUser,
+  sortByAlphaUser,
+} from "../redux/actionCreators";
+
+// import { deleteAll } from "../redux/actionCreators/deleteAll";
+// import { handleDeleteUser } from "../redux/actionCreators/handleDeleteUser";
+// import { sortByAlphaUser } from "../redux/actionCreators/sortByAlphaUser";
 
 interface ITableProps {
-  todo: ITodo[];
-  setTodo: React.Dispatch<React.SetStateAction<ITodo[]>>;
+  users: ITodo[];
 }
 
 const styles = {
@@ -32,30 +42,27 @@ const styles = {
   },
 };
 
-const Table = ({ todo, setTodo }: ITableProps) => {
+const Table = ({ users }: ITableProps) => {
+  const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState<boolean>(false);
 
   const deleteAllUsers = () => {
-    setTodo([]);
+    dispatch(deleteAll());
   };
 
   const handleDelete = (id: number): void => {
-    let newUsersArray = todo.filter((todo) => todo.id !== id);
-    setTodo(newUsersArray);
+    dispatch(handleDeleteUser(id));
   };
 
   const sortByDefault = (): void => {
-    const defaultUsersArray: ITodo[] = JSON.parse(
-      localStorage.getItem("response.data")!
-    );
-    setTodo(defaultUsersArray);
+    const defaultTable = JSON.parse(localStorage.getItem("users")!);
+    console.log(defaultTable);
+
+    dispatch({ type: DEFAULT_TABLE, payload: { defaultTable } });
   };
 
   const sortByAlpha = (): void => {
-    const newUsersArray: ITodo[] = [...todo].sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
-    setTodo(newUsersArray);
+    dispatch(sortByAlphaUser());
   };
 
   return (
@@ -71,7 +78,7 @@ const Table = ({ todo, setTodo }: ITableProps) => {
               </tr>
             </thead>
             <tbody>
-              {todo.map((item: ITodo) => {
+              {users.map((item: ITodo) => {
                 return (
                   <ItemUser
                     item={item}
@@ -113,8 +120,7 @@ const Table = ({ todo, setTodo }: ITableProps) => {
           <MyModal
             show={modalShow}
             onHide={() => setModalShow(false)}
-            todo={todo}
-            setTodo={setTodo}
+            users={users}
           />
         </Col>
       </div>
