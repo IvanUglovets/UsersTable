@@ -15,8 +15,6 @@ const MainPage: React.FC = () => {
     dispatch(fetchUser());
   }, [dispatch]);
 
-  localStorage.setItem("users", JSON.stringify(users));
-
   if (errors) {
     return <h1>Произошла ошибка</h1>;
   }

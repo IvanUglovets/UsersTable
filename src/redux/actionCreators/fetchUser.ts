@@ -14,6 +14,7 @@ const fetchUser = () => {
       const response = await axios.get(
         "https://jsonplaceholder.typicode.com/users"
       );
+      localStorage.setItem("arrayUsers", JSON.stringify(response.data));
       dispatch({
         type: FETCH_USERS_SUCCESS,
         payload: { users: response.data },

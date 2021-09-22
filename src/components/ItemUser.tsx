@@ -2,11 +2,8 @@ import React, { useReducer } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSave, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ITodo from "../models/interfaces/ITodo";
-import {
-  valueIsEditReducer,
-  IValueAndIsEdit,
-} from "../reduxFake/reducers/valueIsEditReducer";
 import { Button } from "react-bootstrap";
+import { valueIsEditActions } from "../models/enums/valueIsEditActions";
 
 interface IUserProps {
   item: ITodo;
@@ -18,6 +15,32 @@ const styles = {
     display: "flex",
     justifyContent: "center",
   },
+};
+
+interface IValueAndIsEdit {
+  editValue: string;
+  isEdit: boolean;
+}
+
+const valueIsEditReducer = (
+  state: IValueAndIsEdit,
+  action: {
+    type: string;
+    payload: string;
+  }
+) => {
+  switch (action.type) {
+    case valueIsEditActions.EDIT_VALUE: {
+      return { ...state, editValue: action.payload };
+    }
+    case valueIsEditActions.IS_EDIT: {
+      return {
+        ...state,
+        isEdit: !state.isEdit,
+      };
+    }
+  }
+  return state;
 };
 
 const ItemUser = ({ item, handleDelete }: IUserProps) => {

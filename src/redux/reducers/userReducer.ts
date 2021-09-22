@@ -64,9 +64,8 @@ export const userReducer = (
 
     case DEFAULT_TABLE:
       return {
-        users: [],
+        users: JSON.parse(localStorage.getItem("arrayUsers")!),
       };
-
     default:
       return state;
   }

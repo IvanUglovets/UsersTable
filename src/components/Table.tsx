@@ -14,10 +14,6 @@ import {
   sortByAlphaUser,
 } from "../redux/actionCreators";
 
-// import { deleteAll } from "../redux/actionCreators/deleteAll";
-// import { handleDeleteUser } from "../redux/actionCreators/handleDeleteUser";
-// import { sortByAlphaUser } from "../redux/actionCreators/sortByAlphaUser";
-
 interface ITableProps {
   users: ITodo[];
 }
@@ -55,10 +51,7 @@ const Table = ({ users }: ITableProps) => {
   };
 
   const sortByDefault = (): void => {
-    const defaultTable = JSON.parse(localStorage.getItem("users")!);
-    console.log(defaultTable);
-
-    dispatch({ type: DEFAULT_TABLE, payload: { defaultTable } });
+    dispatch({ type: DEFAULT_TABLE });
   };
 
   const sortByAlpha = (): void => {
