@@ -59,7 +59,7 @@ const Table = ({ users }: ITableProps) => {
   };
 
   return (
-    <Row>
+    <Row className="row__wrapper">
       <div style={styles.wrapper} className="wrapper">
         <Col sm={9}>
           <TableTodo>
@@ -75,7 +75,7 @@ const Table = ({ users }: ITableProps) => {
                 return (
                   <ItemUser
                     item={item}
-                    key={item.id}
+                    key={`${item.id}__${item.name}`}
                     handleDelete={() => handleDelete(item.id)}
                   />
                 );

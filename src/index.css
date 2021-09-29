@@ -102,3 +102,7 @@ td {
   align-items: center;
   height: 100vh;
 }
+
+.row__wrapper {
+  margin-top: 20px;
+}
